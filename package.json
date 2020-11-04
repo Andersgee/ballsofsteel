@@ -1,0 +1,27 @@
+{
+  "name": "ballsofsteel",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "@material-ui/styles": "latest",
+    "gatsby": "latest",
+    "gatsby-image": "latest",
+    "gatsby-plugin-material-ui": "latest",
+    "gatsby-plugin-react-helmet": "latest",
+    "gatsby-plugin-sharp": "latest",
+    "gatsby-source-filesystem": "latest",
+    "gatsby-transformer-plaintext": "^1.0.0",
+    "gatsby-transformer-sharp": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-helmet": "latest",
+    "socket.io-client": "^2.3.1"
+  },
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve"
+  }
+}
