@@ -4,9 +4,9 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    defaultTitle: `ballsofsteel`,
-    titleTemplate: "%s · ballsofsteel",
-    defaultDescription: `ballsofsteel`,
+    defaultTitle: `Balls of Steel`,
+    titleTemplate: "%s · Balls of Steel",
+    defaultDescription: `socket.io webgl2 game`,
     lang: `en`,
     siteUrl: "https://github.com/andersgee/gatsbystarter",
     defaultImage: "andyfx",

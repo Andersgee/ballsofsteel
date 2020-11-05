@@ -2,6 +2,8 @@ import React, { createRef } from "react";
 import socketIOClient from "socket.io-client";
 import { Button, Box, Grid } from "@material-ui/core";
 import Andygame from "./andygame-gl";
+import Contoller from "./controller";
+
 import Settings from "./Settings";
 import metaltex from "../assets/images/metal.jpg";
 import metalspecular from "../assets/images/metalspecular.jpg";
@@ -9,7 +11,8 @@ import metalnormal from "../assets/images/metalnormal.jpg";
 
 const texturefilenames = [metaltex, metalspecular, metalnormal];
 
-const serveradress = "http://127.0.0.1:4001";
+//const serveradress = "http://127.0.0.1:4001";
+const serveradress = "https://peaceful-reaches-33671.herokuapp.com"
 
 async function fetchglsl() {
   //fetch from static folder for dev pruposes
@@ -37,6 +40,7 @@ export default class Game extends React.Component {
 
   componentDidMount() {
     this.canvas = this.canvasref.current;
+    this.controller = new Contoller(this.props.keybindings);
     fetchglsl().then((glsl) => {
       this.game = new Andygame(this.canvas, glsl[0], glsl[1], texturefilenames);
       this.socket.on("tick", (data) => {
@@ -44,6 +48,8 @@ export default class Game extends React.Component {
         this.game.updategamestate(1);
       });
       this.socket.emit("setname", this.props.playername);
+
+      
     });
     /*
     this.game = new Andygame(

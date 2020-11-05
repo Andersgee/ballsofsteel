@@ -18,8 +18,7 @@ export default function TopLayout(props) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;700&display=swap"
         />
-        <link rel="icon" href="/andyfx.png" />
-        <title>gatsbyMUIstarter</title>
+        <link rel="icon" href="/ballsofsteel.jpg" />
       </Helmet>
       <ThemeProvider theme={theme}>
         <CssBaseline />

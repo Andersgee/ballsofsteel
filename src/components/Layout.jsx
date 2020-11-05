@@ -6,7 +6,8 @@ import useGlsl from "../hooks/use-glsl";
 
 const defaultkeybindings = {
   name: ["Up", "Left", "Down", "Right"],
-  code: ["KEYW", "KEYA", "KEYS", "KEYD"],
+  ispressed: [false,false,false,false],
+  code: ["KeyW", "KeyA", "KeyS", "KeyD"],
   key: ["W", "A", "S", "D"],
 };
 

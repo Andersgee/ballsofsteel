@@ -1,7 +1,7 @@
 import webgl from "./webgl";
 import { setcanvassize, debounce, mousexy } from "./utils";
 
-export default class andygame {
+export default class Andygame {
   constructor(canvas, glslcommon, glsl, texturefilenames) {
     this.canvas = canvas;
     this.gl = webgl.context(this.canvas);
