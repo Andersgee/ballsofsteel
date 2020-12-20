@@ -21,13 +21,18 @@ export default class Andygame {
     this.animframe = requestAnimationFrame(this.animate);
   }
 
-  updategamestate(gamestate) {
+  updategamestate(gamestate, mysocketid) {
     for (let id in gamestate) {
       let i = gamestate[id].i;
+
       let p = gamestate[id].p;
       this.uniforms.playerpos[i * 4 + 0] = p[0];
       this.uniforms.playerpos[i * 4 + 1] = p[1];
       this.uniforms.playerpos[i * 4 + 2] = p[2];
+
+      if (id === mysocketid) {
+        this.uniforms.playerid = i;
+      }
     }
   }
 

@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import Lobby from "./Lobby";
 import Game from "./Game";
 import useGlsl from "../hooks/use-glsl";
-//import useImages from "../hooks/use-images";
 
 const defaultkeybindings = {
   name: ["Up", "Left", "Down", "Right"],
-  ispressed: [false,false,false,false],
+  ispressed: [false, false, false, false],
   code: ["KeyW", "KeyA", "KeyS", "KeyD"],
   key: ["W", "A", "S", "D"],
 };
@@ -18,11 +17,7 @@ export default function Layout() {
   const disconnect = () => setConnected(false);
 
   const [playername, setPlayername] = useState("");
-
   const glsl = useGlsl();
-  //const images = useImages();
-
-  //return <Game disconnect={disconnect} playername={playername} glsl={glsl} />;
 
   return connected ? (
     <Game

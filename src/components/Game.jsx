@@ -2,7 +2,6 @@ import React, { createRef } from "react";
 import socketIOClient from "socket.io-client";
 import { Button, Box, Grid } from "@material-ui/core";
 import Andygame from "./andygame-gl";
-import Contoller from "./controller";
 
 import Settings from "./Settings";
 import metaltex from "../assets/images/metal.jpg";
@@ -26,43 +25,53 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.canvasref = createRef();
-    this.socket = socketIOClient(serveradress);
-    this.gamestate = {};
-
-    this.state = {};
   }
 
   reloadglsl = () => {
     fetchglsl().then((glsl) => {
-      this.game = new Andygame(this.canvas, glsl[0], glsl[1], texturefilenames);
+      this.game = new Andygame(
+        this.canvasref.current,
+        glsl[0],
+        glsl[1],
+        texturefilenames
+      );
     });
   };
 
+  keyHandler = (bool) => (e) => {
+    let i = this.props.keybindings.code.indexOf(e.code);
+    if (i >= 0 && this.props.keybindings.ispressed[i] !== bool) {
+      this.props.keybindings.ispressed[i] = bool;
+      this.socket.emit("state", this.props.keybindings.ispressed);
+    }
+  };
+
   componentDidMount() {
-    this.canvas = this.canvasref.current;
-    this.controller = new Contoller(this.props.keybindings, this.socket);
+    this.socket = socketIOClient(serveradress);
+
+    window.addEventListener("keydown", this.keyHandler(true));
+    window.addEventListener("keyup", this.keyHandler(false));
+
     fetchglsl().then((glsl) => {
-      this.game = new Andygame(this.canvas, glsl[0], glsl[1], texturefilenames);
+      this.game = new Andygame(
+        this.canvasref.current,
+        glsl[0],
+        glsl[1],
+        texturefilenames
+      );
+
       this.socket.on("tick", (data) => {
-        this.game.updategamestate(data);
+        this.game.updategamestate(data, this.socket.id);
       });
+
       this.socket.emit("setname", this.props.playername);
     });
-    /*
-    this.game = new Andygame(
-      this.canvas,
-      this.props.glsl.common,
-      this.props.glsl.game
-    );
-
-    this.socket.on("tick", (data) => {
-      this.gamestate = data;
-    });
-    this.socket.emit("setname", this.props.playername);
-    */
   }
 
   componentWillUnmount() {
+    //window.removeEventListener("keydown", this.keyHandler(true));
+    //window.removeEventListener("keyup", this.keyHandler(false));
+    //this.socket.emit("disconnect");
     this.socket.disconnect();
   }
 
