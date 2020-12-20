@@ -11,8 +11,8 @@ import metalnormal from "../assets/images/metalnormal.jpg";
 
 const texturefilenames = [metaltex, metalspecular, metalnormal];
 
-//const serveradress = "http://127.0.0.1:4001";
-const serveradress = "https://peaceful-reaches-33671.herokuapp.com"
+const serveradress = "http://127.0.0.1:3000";
+//const serveradress = "https://peaceful-reaches-33671.herokuapp.com"
 
 async function fetchglsl() {
   //fetch from static folder for dev pruposes
@@ -40,16 +40,13 @@ export default class Game extends React.Component {
 
   componentDidMount() {
     this.canvas = this.canvasref.current;
-    this.controller = new Contoller(this.props.keybindings);
+    this.controller = new Contoller(this.props.keybindings, this.socket);
     fetchglsl().then((glsl) => {
       this.game = new Andygame(this.canvas, glsl[0], glsl[1], texturefilenames);
       this.socket.on("tick", (data) => {
-        this.gamestate = data;
-        this.game.updategamestate(1);
+        this.game.updategamestate(data);
       });
       this.socket.emit("setname", this.props.playername);
-
-      
     });
     /*
     this.game = new Andygame(

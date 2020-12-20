@@ -15,7 +15,7 @@ out vec3 lookAt;
 void main() {
   uv = clipspace * (canvassize.xy / canvassize.y);
   float d = 4.0;
-  ro = vec3(d * cos(mouse.x), 0.1 + d * mouse.y, d * sin(mouse.x)) +
+  ro = vec3(-d * cos(mouse.x-0.5), 0.1 + d * mouse.y, -d * sin(mouse.x-0.5)) +
        playerpos[playerid].xyz;
   lookAt = vec3(0.0) + playerpos[playerid].xyz;
   gl_Position = vec4(clipspace, 0.0, 1.0);

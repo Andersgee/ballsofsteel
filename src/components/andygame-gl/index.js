@@ -22,7 +22,13 @@ export default class Andygame {
   }
 
   updategamestate(gamestate) {
-    this.uniforms.playerpos[0] -= 0.1;
+    for (let id in gamestate) {
+      let i = gamestate[id].i;
+      let p = gamestate[id].p;
+      this.uniforms.playerpos[i * 4 + 0] = p[0];
+      this.uniforms.playerpos[i * 4 + 1] = p[1];
+      this.uniforms.playerpos[i * 4 + 2] = p[2];
+    }
   }
 
   resizehandler = debounce(() => this.handlesizing(), 100);
